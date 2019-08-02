@@ -1,32 +1,29 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>typeidea 练习</title>
-    </head>
-    <body>
-        {% if tag %}
-        标签页：{{ tag.name }}
-        {% endif %}
-        
-        {% if category %}
-        分类页：{{ category.name }}
-        {% endif %}
-        
-        
-        <ul>
-            {% for post in post_list %}
-            <li>
-                <a href="/post/{{ post.id }}.html">{{ post.title }}</a>
-                <div>
-                    <span>分类:{{ post.category.name }}</post></span>
-                    <span>作者:{{ post.owner.username }}</post></span>
-                </div>
-                <p>
-                    {{ post.desc }}
-                </p>
-            </li>
-            {% endfor %}
-        </ul>
-    </body>
-</html>
+{% extends "./base.html" %}
+
+
+{% block title %}
+    {% if tag %}
+    标签页：{{ tag.name }}
+    {% endif %}
+    
+    {% if category %}
+    分类页：{{ category.name }}
+    {% endif %}
+{% endblock %}
+    
+{% block main %}    
+    <ul>
+        {% for post in post_list %}
+        <li>
+            <a href="{% url 'post-detail' post.id %}">{{ post.title }}</a>
+            <div>
+                <span>分类:{{ post.category.name }}</post></span>
+                <span>作者:{{ post.owner.username }}</post></span>
+            </div>
+            <p>
+                {{ post.desc }}
+            </p>
+    </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
